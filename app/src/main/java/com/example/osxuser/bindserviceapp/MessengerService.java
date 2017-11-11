@@ -40,4 +40,9 @@ public class MessengerService extends Service {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "Messenger Service onDestroy().", Toast.LENGTH_SHORT).show();
+    }
 }
