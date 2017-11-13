@@ -10,15 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
-        </activity>
-
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity android:name=".Activity2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,9 +18,19 @@
         </activity>
 
         <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".Activity2"></activity>
+
+        <service
             android:name=".MessengerService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

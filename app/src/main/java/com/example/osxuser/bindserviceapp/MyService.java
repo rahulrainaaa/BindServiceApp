@@ -27,6 +27,20 @@ public class MyService extends Service {
 
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+
+        return START_REDELIVER_INTENT;
+    }
+
     public int getNumber() {
         return number++;
     }

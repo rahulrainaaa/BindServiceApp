@@ -27,16 +27,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 
-        Intent intent = new Intent(this, MyService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        startService(new Intent(getApplicationContext(), MyService.class));
+//        Intent intent = new Intent(this, MyService.class);
+//        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        unbindService(mConnection);
-        mBound = false;
+        if (mBound) {
+
+            unbindService(mConnection);
+            mBound = false;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (mBound) {
+            unbindService(mConnection);
+            mBound = false;
+        } else {
+            Intent intent = new Intent(this, MyService.class);
+            bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        }
+
     }
 
     @Override
@@ -58,13 +75,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             MyService.LocalBinder binder = (MyService.LocalBinder) iBinder;
             mService = binder.getService();
             mBound = true;
-
+            Toast.makeText(mService, "onServiceConnected", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
 
             mBound = false;
+
         }
     };
 }
